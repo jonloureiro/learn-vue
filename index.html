@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Mini E-Commerce</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <style>
+      div button,
+      input {
+        display: block;
+        margin-top: 0.3em;
+      }
+
+      #bemvindo,
+      form {
+        margin-top: 2em;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="app">
+      <p>Mini E-Commerce</p>
+
+      <div v-show="!hasUser">
+        <form @submit="login">
+          <input
+            id="email"
+            v-model="form_login.email"
+            type="email"
+            placeholder="email"
+            required>
+          <input
+            id="senha"
+            v-model="form_login.senha"
+            type="password"
+            placeholder="senha"
+            required>
+          <input
+            type="submit"
+            value="entrar">
+        </form>
+        <form @submit="cadastrar">
+          <input
+            id="email"
+            v-model="form_login.email"
+            type="email"
+            placeholder="email"
+            required>
+          <input
+            id="senha"
+            v-model="form_login.senha"
+            type="password"
+            placeholder="senha"
+            required>
+          <input
+            id="conf_senha"
+            v-model="form_login.conf_senha"
+            type="password"
+            placeholder="confirmar senha"
+            required>
+          <input
+            type="submit"
+            value="cadastrar">
+        </form>
+      </div>
+      <div v-show="hasUser">
+        <p id="bemvindo">usuário: {{email}}</p>
+        <button id="logout" @click="logout">sair</button>
+      </div>
+    </div>
+
+    <script>
+      var app = new Vue({
+          el: '#app',
+          data: {
+              user: null,
+              email: '',
+              form_login: {
+                  email: '',
+                  senha: '',
+                  conf_senha: '',
+              },
+              config: {
+                  apiKey: "AIzaSyA5Z7hfhGNoTBADcusyhhzPvu5Kgnin_nc",
+                  authDomain: "admin-e-users.firebaseapp.com",
+                  databaseURL: "https://admin-e-users.firebaseio.com",
+                  projectId: "admin-e-users",
+                  storageBucket: "",
+                  messagingSenderId: "451591112883"
+              },
+              fb: null
+          },
+          computed: {
+              hasUser: function() {
+                  return (this.user != null);
+              }
+          },
+          methods: {
+              login: function(e) {
+                  e.preventDefault();
+
+                  var email = this.form_login.email;
+                  var password = this.form_login.senha;
+
+                  this.fb.auth()
+                  .signInWithEmailAndPassword(email, password)
+                  .catch(function(error) {
+                      console.log(error.code);
+                      console.log(error.message);
+                  });
+              },
+              cadastrar: function(e) {
+                  e.preventDefault();
+
+                  var email = this.form_login.email;
+                  var password = this.form_login.senha;
+
+                  if (password != this.form_login.conf_senha) {
+                      console.log('Senhas precisam ser iguais.');
+                      return;
+                  }
+
+                  this.fb.auth()
+                  .createUserWithEmailAndPassword(email, password)
+                  .catch(function(error) {
+                      console.log(error.code);
+                      console.log(error.message);
+                  });
+              },
+              logout: function() {
+                  this.fb.auth()
+                  .signOut()
+                  .catch(function(error) {
+                    console.log(error.code);
+                    console.log(error.message);
+                  });
+              },
+              authUser: function(user) {
+                  this.user = user;
+                  if (user == null) {
+                      this.email = '';
+                  } else {
+                      this.email = user.email;
+                  }
+              }
+          },
+          created: function() {
+              this.fb = firebase.initializeApp(this.config);
+              this.fb.auth().onAuthStateChanged(this.authUser);
+          }
+      });
+    </script>
+  </body>
+</html>
