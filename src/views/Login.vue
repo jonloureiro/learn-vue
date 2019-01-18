@@ -1,5 +1,5 @@
 <template lang="html">
-  <h2>{{message}}</h2>
+  <h2>{{ message}}</h2>
   <!-- <div class="" v-show="!hasUser">
     <form @submit="login">
       <input
@@ -29,7 +29,7 @@ module.exports = {
   name: 'Login',
   data: function() {
     return {
-      message: 'LOGIN'
+      message: 'LOGIN',
     }
   }
 }
