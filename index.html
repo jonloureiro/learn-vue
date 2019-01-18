@@ -3,25 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#D18181">
+    <meta name="msapplication-navbutton-color" content="#D18181">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#D18181">
     <title>Mini E-Commerce</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css" />
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.2/vue-router.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/http-vue-loader@1.4.0/src/httpVueLoader.min.js"></script>
   </head>
   <body>
     <div id="app">
 
-      <!-- Header -->
-      <header class="header">
-        <h2 class="header__title">Mini E-Commerce</h2>
-      </header>
+      <Bar></Bar>
 
-      <!-- Content -->
       <main class="main">
-        <div class="">
+        <router-view></router-view>
+
           <div class="" v-show="!hasUser">
             <form @submit="login">
               <input
@@ -42,13 +44,13 @@
             </form>
             <form @submit="cadastrar">
               <input
-                id="email"
+                id="email2"
                 v-model="form_login.email"
                 type="email"
                 placeholder="email"
                 required>
               <input
-                id="senha"
+                id="senha2"
                 v-model="form_login.senha"
                 type="password"
                 placeholder="senha"
@@ -68,15 +70,14 @@
             <p class="bemvindo">usuário: {{email}}</p>
             <button id="logout" @click="logout">sair</button>
           </div>
-        </div>
+
       </main>
 
-      <!-- Footer -->
-      <footer class="footer">
-        <p class="footer__copyright">Copyright (c) 2019 Jonathan Loureiro</p>
-      </footer>
+      <Foo></Foo>
 
     </div>
-    <script type="text/javascript" src="main.js"></script>
+    <script src="components.js"></script>
+    <script src="router.js"></script>
+    <script src="main.js"></script>
   </body>
 </html>

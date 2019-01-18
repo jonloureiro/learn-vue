@@ -1,5 +1,7 @@
 var app = new Vue({
     el: '#app',
+    components,
+    router,
     data: {
         user: null,
         email: '',
@@ -7,14 +9,6 @@ var app = new Vue({
             email: '',
             senha: '',
             conf_senha: '',
-        },
-        config: {
-            apiKey: "AIzaSyA5Z7hfhGNoTBADcusyhhzPvu5Kgnin_nc",
-            authDomain: "admin-e-users.firebaseapp.com",
-            databaseURL: "https://admin-e-users.firebaseio.com",
-            projectId: "admin-e-users",
-            storageBucket: "",
-            messagingSenderId: "451591112883"
         },
         fb: null
     },
@@ -73,7 +67,15 @@ var app = new Vue({
         }
     },
     created: function() {
-        this.fb = firebase.initializeApp(this.config);
+        const config = {
+          apiKey: "AIzaSyA5Z7hfhGNoTBADcusyhhzPvu5Kgnin_nc",
+          authDomain: "admin-e-users.firebaseapp.com",
+          databaseURL: "https://admin-e-users.firebaseio.com",
+          projectId: "admin-e-users",
+          storageBucket: "",
+          messagingSenderId: "451591112883"
+        }
+        this.fb = firebase.initializeApp(config);
         this.fb.auth().onAuthStateChanged(this.authUser);
     }
 });
