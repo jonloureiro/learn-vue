@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="theme-color" content="#556270">
     <meta name="msapplication-navbutton-color" content="#556270">
     <meta name="apple-mobile-web-app-status-bar-style" content="#556270">
@@ -19,66 +19,18 @@
   </head>
   <body>
     <div id="app">
-
       <Bar></Bar>
-
       <main class="main">
         <router-view></router-view>
-
-          <div class="" v-show="!hasUser">
-            <form @submit="login">
-              <input
-                id="email"
-                v-model="form_login.email"
-                type="email"
-                placeholder="email"
-                required>
-              <input
-                id="senha"
-                v-model="form_login.senha"
-                type="password"
-                placeholder="senha"
-                required>
-              <input
-                type="submit"
-                value="entrar">
-            </form>
-            <form @submit="cadastrar">
-              <input
-                id="email2"
-                v-model="form_login.email"
-                type="email"
-                placeholder="email"
-                required>
-              <input
-                id="senha2"
-                v-model="form_login.senha"
-                type="password"
-                placeholder="senha"
-                required>
-              <input
-                id="conf_senha"
-                v-model="form_login.conf_senha"
-                type="password"
-                placeholder="confirmar senha"
-                required>
-              <input
-                type="submit"
-                value="cadastrar">
-            </form>
-          </div>
-          <div v-show="hasUser">
             <p class="bemvindo">usuário: {{email}}</p>
             <button id="logout" @click="logout">sair</button>
-          </div>
-
       </main>
-
       <Foo></Foo>
-
     </div>
     <script src="src/router.js"></script>
-    <script src="src/store.js"></script>
+    <script src="src/store/modules/user.js"></script>
+    <script src="src/store/modules/route.js"></script>
+    <script src="src/store/index.js"></script>
     <script src="main.js"></script>
   </body>
 </html>

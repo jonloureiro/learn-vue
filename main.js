@@ -2,8 +2,8 @@ Vue.config.devtools = true
 
 var app = new Vue({
     el: '#app',
-    router,
-    store,
+    router: new VueRouter({routes}),
+    store: new Vuex.Store({modules}),
     components: {
       'Foo':   httpVueLoader('src/components/layout/Foo.vue'),
       'Bar':   httpVueLoader('src/components/layout/Bar.vue')
@@ -11,60 +11,8 @@ var app = new Vue({
     data: {
         user: null,
         email: '',
-        form_login: {
-            email: '',
-            senha: '',
-            conf_senha: '',
-        },
-        hasAuth: false
-    },
-    computed: {
-        hasUser: function() {
-            return (this.user != null);
-        }
     },
     methods: {
-        login: function(e) {
-            e.preventDefault();
-
-            var email = this.form_login.email;
-            var password = this.form_login.senha;
-
-            this.$auth
-            .login(email, password)
-            .then(function (user) {
-                console.log('Login feito com sucesso');
-                console.log(user);
-            })
-            .catch(function(error) {
-                console.log(error.code);
-                console.log(error.message);
-            });
-        },
-        cadastrar: function(e) {
-            e.preventDefault();
-
-            var email = this.form_login.email;
-            var password = this.form_login.senha;
-
-            if (password != this.form_login.conf_senha) {
-                console.log('Senhas precisam ser iguais.');
-                return;
-            }
-
-            this.$auth
-            .create(email, password)
-            .then(function (user) {
-                // this.$router.replace('/');
-                // console.log('Cadastro feito com sucesso');
-                // console.log(user);
-            })
-            .catch(function(error) {
-              this.$router,replace('/');
-                console.log(error.code);
-                console.log(error.message);
-            });
-        },
         logout: function() {
             this.$auth
             .logout()
@@ -89,14 +37,19 @@ var app = new Vue({
         fb.auth().onAuthStateChanged((user) => {
           this.hasAuth = true;
           this.user = user;
+          this.$store.commit('updateUser', {user});
+
           if (user == null) {
               this.email = '';
-              if (this.$route.meta.requiresAuth)
-                this.$router.replace('/login');
+              if (this.$route.meta.requiresAuth) this.$router.replace('/login');
           } else {
               this.email = user.email;
-              if (this.$route.meta.requiresNonAuth)
-                this.$router.replace('/')
+              if (this.$route.meta.requiresNonAuth) {
+                const previous = this.$store.state.route.previous;
+                if (previous != null) {
+                  this.$router.replace(previous.fullPath)
+                } else this.$router.replace('/');
+              }
           }
         });
 
@@ -113,11 +66,17 @@ var app = new Vue({
         };
 
         this.$router.beforeEach((to, from, next) => {
+          if (from.name != 'register' && from.name != 'login') {
+            const previous = from
+            this.$store.commit('updatePreviousRoute', {previous});
+          }
+
           const currentUser = fb.auth().currentUser;
           const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
           const requiresNonAuth = to.matched.some(record => record.meta.requiresNonAuth);
+
           if (requiresAuth && !currentUser) next('login');
-          else if (requiresNonAuth && currentUser) next('/');
+          else if (requiresNonAuth && currentUser) next(from.fullPath);
           else next();
         });
     }
