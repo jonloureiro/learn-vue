@@ -1,10 +1,17 @@
 const user = {
   state: {
-    on: false
+    on: false,
+    email: ''
   },
   mutations: {
     updateUser(state, {user}) {
-      state.on = (user != null);
+      if (user != null) {
+        state.on = true;
+        state.email = user.email;
+      } else {
+        state.on = false;
+        state.email = '';
+      }
     }
   },
   actions: {

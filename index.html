@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
-    <!-- <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.22/vue.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-router/3.0.2/vue-router.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/3.1.0/vuex.min.js"></script>
@@ -22,8 +21,6 @@
       <Bar></Bar>
       <main class="main">
         <router-view></router-view>
-            <p class="bemvindo">usuário: {{email}}</p>
-            <button id="logout" @click="logout">sair</button>
       </main>
       <Foo></Foo>
     </div>

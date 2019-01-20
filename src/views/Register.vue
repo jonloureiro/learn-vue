@@ -1,34 +1,44 @@
 <template lang="html">
-  <div class="">
-    <form @submit="register">
+  <Card title="Registrar">
+    <form class="Card__form" @submit="register">
       <input
-        id="email"
+        class="Card__input"
         v-model="email"
         type="email"
         placeholder="Insira seu email"
-        required>
+        required
+      >
       <input
-        id="pass"
+        class="Card__input"
         v-model="pass"
         type="password"
         placeholder="Insira sua senha"
-        required>
+        required
+      >
       <input
-        id="pass2"
+        class="Card__input"
         v-model="pass2"
         type="password"
         placeholder="Confirme sua senha"
-        required>
-      <input
-        type="submit"
-        value="cadastrar">
+        required
+      >
+      <div class="Card__wrapper">
+        <input
+          class="Card__button"
+          type="submit"
+          value="cadastrar"
+        >
+      </div>
     </form>
-  </div>
+  </Card>
 </template>
 
 <script>
 module.exports = {
   name: 'Register',
+  components: {
+    'Card': httpVueLoader('src/components/Card.vue')
+  },
   data: function() {
     return {
       email: '',

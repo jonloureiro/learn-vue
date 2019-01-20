@@ -10,9 +10,9 @@ const routes = [
     component: httpVueLoader('src/views/Home.vue')
   },
   {
-    path: '/cart',
-    name: 'cart',
-    component: httpVueLoader('src/views/Cart.vue')
+    path: '/about',
+    name: 'about',
+    component: httpVueLoader('src/views/About.vue')
   },
   {
     path: '/login',

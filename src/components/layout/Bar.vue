@@ -1,10 +1,17 @@
 <template lang="html">
   <header :class="$options.name">
-      <router-link :class="`${$options.name}__link`" to="/">
-        <h2 :class="`${$options.name}__title`">{{ title }}</h2>
-      </router-link>
-      <router-link :class="`${$options.name}__link`" to="/cart">Carrinho ({{ cart }})</router-link>
-      <router-link :class="`${$options.name}__link`" to="/login">Login</router-link>
+    <router-link :class="`${$options.name}__link`" to="/">
+      <h2 :class="`${$options.name}__title`">{{ title }}</h2>
+    </router-link>
+    <router-link :class="`${$options.name}__link`" to="/about">
+      About
+    </router-link>
+    <router-link v-if="!hasUser" :class="`${$options.name}__link`" to="/login">
+      Login
+    </router-link>
+    <router-link v-else :class="`${$options.name}__link`" to="/profile">
+      Profile
+    </router-link>
   </header>
 </template>
 
@@ -13,8 +20,12 @@ module.exports = {
   name: 'Bar',
   data: function() {
     return {
-      title: 'Mini E-Commerce',
-      cart: 0
+      title: 'Mini E-Commerce'
+    }
+  },
+  computed: {
+    hasUser: function() {
+      return this.$store.state.user.on;
     }
   }
 }
@@ -45,6 +56,4 @@ module.exports = {
   color: #EFF0F2;
   text-decoration: none;
 }
-
-
 </style>

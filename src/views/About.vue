@@ -1,10 +1,10 @@
 <template lang="html">
-  <h2>CART</h2>
+  <h2>ABOUT</h2>
 </template>
 
 <script>
 module.exports = {
-  name: 'Cart',
+  name: 'About',
   data: function() {
     return {
     }
