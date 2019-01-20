@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="wrapper">
+  <div class="content">
     <div :class="$options.name">
       <h3 :class="`${$options.name}__title`">{{title}}</h3>
       <slot></slot>
@@ -22,25 +22,31 @@ module.exports = {
 </script>
 
 <style lang="css" scoped>
-.wrapper {
+.content {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
-  width: 100%;
 }
 
 .Card {
-  padding: 1rem;
+  padding: 2rem 1rem;
   width: 20rem;
   background-color: #556270;
   border-radius: .5rem;
+  margin-bottom: 1.5rem
 }
 
 .Card__title {
   color: #EFF0F2;
   margin: 0;
   text-align: center;
+  margin-bottom: 1rem
+}
+
+.Card__content {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .Card__form {
@@ -72,5 +78,11 @@ module.exports = {
   text-decoration: none;
   color: #EFF0F2;
   margin-right: .5rem;
+}
+
+.Card__text {
+  color: #EFF0F2;
+  margin-top: .5rem;
+  margin-bottom: .5rem;
 }
 </style>

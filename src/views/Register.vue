@@ -26,7 +26,7 @@
         <input
           class="Card__button"
           type="submit"
-          value="cadastrar"
+          value="Cadastrar"
         >
       </div>
     </form>

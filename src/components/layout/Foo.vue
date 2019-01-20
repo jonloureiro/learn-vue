@@ -17,7 +17,7 @@ module.exports = {
 
 <style lang="css" scoped>
 .Foo {
-  background: linear-gradient(to left, #556270, #8C7078);
+  background: #556270
 }
 
 .Foo__copyright {

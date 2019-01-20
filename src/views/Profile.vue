@@ -1,14 +1,19 @@
 <template lang="html">
-  <div class="wrapper">
-    <h2>PROFILE</h2>
-    <p>usuário: {{ email }}</p>
-    <button id="logout" @click="logout">sair</button>
-  </div>
+  <Card title="Profile">
+    <p class="Card__text">usuário: <i>{{ email }}</i></p>
+    <p class="Card__text">admin: <i>não</i></p>
+    <div class="Card__content">
+      <button class="Card__button" @click="logout">sair</button>
+    </div>
+  </Card>
 </template>
 
 <script>
 module.exports = {
   name: 'Profile',
+  components: {
+    'Card': httpVueLoader('src/components/Card.vue')
+  },
   data: function() {
     return {
     }
